@@ -31,13 +31,17 @@ void ReverseWords(const std::string &line)
    
     for (int i=0; i<len; ++i)
     {
-        result += words.top();
-        if (i != (len -1))
-            result += " ";
+        result += words.top() + " ";
             
         words.pop();
     }
-    result += "\b";    
+    
+    size_t endpos = result.find_last_not_of(" \t");
+    if( std::string::npos != endpos )
+    {
+        result = result.substr( 0, endpos+1 );
+    }
+    
     std::cout << result << std::endl;
 }
 
