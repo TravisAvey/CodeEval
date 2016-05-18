@@ -18,13 +18,30 @@ int main(int argc, char *argv[])
             delete [] A;
         }
     }
-    
+    file.close();
     return 0;
 }
 
 void Multiples(int *A)
 {
-    std::cout << A[0] << ", " << A[1] << std::endl;
+    // first number is the 'hurdle', must be greater than or equal to
+    int x = A[0];
+    
+    // second number is a power of 2, where we must print out the smallest
+    // multiple of n that is greater than x (no division or modulus)
+    int n = A[1];
+    //std::cout << x << "," << n << std::endl;
+    
+    for (int i=1; i<=x; ++i)
+    {
+        int multiple = i*n;
+        if (multiple >= x)
+        {
+            std::cout << multiple << std::endl;
+            break;
+        }
+    }
+    
 }
 
 int *Split(const std::string &line)
@@ -39,3 +56,14 @@ int *Split(const std::string &line)
         
     return A;
 }
+
+/*
+wrong answer.. had 10 inputs...
+
+1600
+256
+2048
+2048
+2048
+
+*/
