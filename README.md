@@ -11,7 +11,7 @@ Use Makefile
     make file
     ./file
 
-## C#
+## C #
 	mcs File.cs
 	mono File.exe
 
