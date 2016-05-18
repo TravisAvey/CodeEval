@@ -7,7 +7,6 @@ Code Challenges :: Whiteboard Interview Technical Questions
     ./a.out
 
 ## C
-Use Makefile
     make file
     ./file
 
