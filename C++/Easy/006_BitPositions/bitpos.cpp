@@ -3,8 +3,10 @@
 #include <sstream>
 #include <bitset>
 #include <vector>
+#include <cmath>
 
 std::vector<int> Split(const std::string);
+void BitPositions(const std::vector<int> &);
 
 int main(int argc, char *argv[])
 {
@@ -15,12 +17,9 @@ int main(int argc, char *argv[])
         while (std::getline(file, data))
         {
             std::vector<int> nums = Split(data);
-            for (int i : nums)
-                std::cout << i << std::endl;
-            std::cout << "********\n";
+            BitPositions(nums);
         }
     }
-    std::cout << std::bitset<8>(125).to_string() << std::endl;
     return 0;
 }
 
@@ -36,3 +35,19 @@ std::vector<int> Split(const std::string data)
     return v;  
 }
 
+void BitPositions(const std::vector<int> &data)
+{
+    int num = data[0];
+    int posA = data[1];
+    int posB = data[2];
+    
+    posA = abs(posA - 8);
+    posB = abs(posB - 8);
+    
+    std::string bitString = std::bitset<8>(num).to_string();
+   
+    if (bitString[posA] == bitString[posB])
+        std::cout << "true" << std::endl;
+    else
+        std::cout << "false" << std::endl;
+}
