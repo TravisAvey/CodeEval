@@ -1,12 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <bitset>
 #include <vector>
-#include <cmath>
+
 
 std::vector<int> Split(const std::string);
 void BitPositions(const std::vector<int> &);
+bool GetBit(unsigned int, int);
+bool CompareBits(unsigned int, int, int);
 
 int main(int argc, char *argv[])
 {
@@ -20,6 +21,7 @@ int main(int argc, char *argv[])
             BitPositions(nums);
         }
     }
+    
     return 0;
 }
 
@@ -38,16 +40,27 @@ std::vector<int> Split(const std::string data)
 void BitPositions(const std::vector<int> &data)
 {
     int num = data[0];
-    int posA = data[1];
-    int posB = data[2];
+    int a = data[1];
+    int b = data[2];
+    a--;
+    b--;
     
-    posA = abs(posA - 8);
-    posB = abs(posB - 8);
     
-    std::string bitString = std::bitset<8>(num).to_string();
-   
-    if (bitString[posA] == bitString[posB])
+    if (CompareBits(num,a,b))
         std::cout << "true" << std::endl;
     else
         std::cout << "false" << std::endl;
+}
+
+bool GetBit(unsigned int val, int pos)
+{
+    return (val & (1<< pos)) >> pos;
+}
+
+bool CompareBits(unsigned int val, int a, int b)
+{
+    if (GetBit(val,a) ^ GetBit(val,b)) 
+        return false;
+    else
+        return true;
 }
