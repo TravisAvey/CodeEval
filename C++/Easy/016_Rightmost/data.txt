@@ -1,2 +1,7 @@
 Hello World,r
 Hello CodeEval,E
+
+Jabroni,J
+
+Jim,i
+zimbambweZ,Z
