@@ -17,11 +17,10 @@ int main(int argc, char *argv[])
             std::getline(file, line);
             
             char ch = line.back();
-            std::string copy = line.substr(0, line.length()-1);
+            std::string copy = line.substr(0, line.length()-2);
             int pos = CharPos(copy, ch);
             
-            if (pos != -1)
-                std::cout << pos << std::endl;
+            std::cout << pos << std::endl;
         }
     }
     return 0;
@@ -36,5 +35,4 @@ int CharPos(const std::string &line, char ch)
             pos = i;
     }
     return pos;
-    //return line.find_first_of(ch);
 }
