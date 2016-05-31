@@ -3,10 +3,10 @@
 #include <vector>
 #include <sstream>
 
-enum Instructions { SetCol, SetRow, QueryCol, QueryRow };
+enum INS { SetCol, SetRow, QueryCol, QueryRow };
 
 void InitBoard (int [][256]);
-Instructions GetInstructions(std::string &, std::vector<int> &);
+INS GetInstructions(std::string &, std::vector<int> &);
 
 int main (int argc, char *argv[])
 {
@@ -21,7 +21,13 @@ int main (int argc, char *argv[])
         while (std::getline(file, line))
         {
             std::vector<int> data;
-            GetInstructions(line, data);
+            INS ins = GetInstructions(line, data);
+            if (ins == SetCol || ins == SetRow)
+                // call method to insert numbers
+                std::cout << "Call Insert Method" << std::endl;
+            else if (ins == QueryCol || ins == QueryRow)
+                // call method to get the sum of Col or Row
+                std::cout << "call query method" << std::endl;
                        
         }
     }
@@ -33,15 +39,13 @@ int main (int argc, char *argv[])
 void InitBoard(int board[][256])
 {
     for (int i=0; i<255; ++i)
-    {
         for (int j=0; j<255; ++j)
             board[i][j] = 0;
-    }
 }
 
-Instructions GetInstructions(std::string &line, std::vector<int> &data)
+INS GetInstructions(std::string &line, std::vector<int> &data)
 {
-    Instructions ins;
+    INS ins;
     ins = SetCol;
     std::stringstream ss(line);
     std::string token;
@@ -52,13 +56,27 @@ Instructions GetInstructions(std::string &line, std::vector<int> &data)
     {
         ss >> instruction;
         ss >> a;
+        
         if (instruction == "QueryCol" || instruction == "QueryRow")
         {
             b = 0;
             break;
         }
+        
         ss >> b;
     }
-    std::cout << instruction << ' ' << a << ' ' << b << std::endl;
+
+    if (instruction == "SetCol")
+            ins = SetCol;
+    else if (instruction == "SetRow")
+            ins = SetRow;
+    else if (instruction == "QueryCol")
+            ins = QueryCol;
+    else if (instruction == "QueryRow")
+            ins = QueryCol;
+
+    
+    data.push_back(a);
+    data.push_back(b);
     return ins;
 }
