@@ -1,62 +1,72 @@
 #include <iostream>
 #include <fstream>
-#include <map>
+#include <algorithm>
+#include <string>
+#include <vector>
 
-void SetupMap(std::map<char, int> &);
-int GetLetterValue(std::map<char, int> &, char);
+
+void SetCounts(std::string &);
+void RemovePuncSpaces(std::string &);
+
+
 int main (int argc, char *argv[])
 {
+    // open file
     std::fstream file(argv[1], std::ios::in);
+    // if file opened
     if (file)
     {
+        // get each line and call the method to get the count
         std::string line;
         while (std::getline(file, line))
-        {
-            std::map<char, int> dict;
-            SetupMap(dict);
-            int sum = 0;
-            for (auto i : line)
-                sum += GetLetterValue(dict, i);
-                
-            std::cout << sum << std::endl;
-        }
+            SetCounts(line);
     }
+    
+    // close file
     file.close();
     return 0;
 }
 
-void SetupMap(std::map<char, int> & scores)
+/*
+    This method outputs the Beautiful # of each string
+*/
+void SetCounts(std::string &line)
 {
+    // set each char to lowercase
+    std::transform (line.begin(), line.end(), line.begin(), ::tolower);
     
-    scores['A'] = 24;  scores['b'] = 25;  scores['C'] = 26;
-    scores['a'] = 24;  scores['B'] = 25;  scores['c'] = 26;
+    // declare a vector to hold the possible characters
+    // we only need the number of each char, dont care about the chars
+    // themselves
+    std::vector<int> posChars;
     
-    scores['D'] = 21;  scores['E'] = 22;  scores['F'] = 23;
-    scores['d'] = 21;  scores['e'] = 22;  scores['f'] = 23;
+    // init all chars ('a-z') to 0
+    for (int i=0; i<26; ++i)
+        posChars.push_back(0);
     
-    scores['G'] = 18;  scores['H'] = 19;  scores['I'] = 20;
-    scores['g'] = 18;  scores['h'] = 19;  scores['i'] = 20;
+    // for each char in the string    
+    for (char c : line)
+    {
+        // if not a letter, continue
+        if (c < 'a' || c > 'z')
+            continue;
+        // increment the current char
+        posChars[c-'a']++;
+    }
     
-    scores['J'] = 15;  scores['K'] = 16;  scores['L'] = 17;
-    scores['j'] = 15;  scores['k'] = 16;  scores['l'] = 17;
+    // sort the vector (this is low to hi)
+    std::sort(posChars.begin(), posChars.end());
     
-    scores['M'] = 12;  scores['N'] = 13;  scores['O'] = 14;
-    scores['m'] = 12;  scores['n'] = 13;  scores['o'] = 14;
+    // declare vars to hold sum
+    int sum = 0;
+    int n = 26;
+    // start at end of vector
+    for (int i=25; i>=0; --i)
+        // increment sum with the current char # multiply by n
+        sum += posChars[i]*n--;
     
-    scores['P'] = 9;  scores['Q'] = 10;  scores['R'] = 11;
-    scores['p'] = 9;  scores['q'] = 10;  scores['r'] = 11;
-    
-    scores['S'] = 6;  scores['T'] = 7;  scores['U'] = 8;
-    scores['s'] = 6;  scores['t'] = 7;  scores['u'] = 8;
-    
-    scores['V'] = 3;  scores['W'] = 4;  scores['X'] = 5;
-    scores['v'] = 3;  scores['w'] = 4;  scores['x'] = 5;
-    
-    scores['Y'] = 1;  scores['Z'] = 2;  
-    scores['y'] = 1;  scores['z'] = 2;
+    // output the sum
+    std::cout << sum << std::endl;
+        
 }
 
-int GetLetterValue(std::map<char, int> &dict, char ch)
-{
-    return dict[ch];
-}
