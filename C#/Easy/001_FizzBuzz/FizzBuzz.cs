@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 class FizzBuzz
 {
@@ -37,27 +36,24 @@ class FizzBuzz
     static void Main(string[] args)
     {
        // open file
-       var file = new FileStream(args[0], FileMode.Open, FileAccess.Read);
+       var file = new System.IO.StreamReader(args[0]);
        
        int fizz, buzz, max;
        string line;
-       // read each line
-       using (var reader = new StreamReader(file))
-       {
-           // while we can get a line
-           while ((line = reader.ReadLine()) != null)
-           {
-               // split line into an array, parse to int
-               List<int> data = new List<int>(Array.ConvertAll(line.Split(' '), int.Parse));
-               // extract the data needed
-               fizz = data[0];
-               buzz = data[1];
-               max = data[2];
-               // print out the fizz buzz
-               PrintFizzBuzz(fizz, buzz, max);
-               
-           }
-       }
+        // while we can get a line
+        while ((line = file.ReadLine()) != null)
+        {
+            // split line into an array, parse to int
+            List<int> data = new List<int>(Array.ConvertAll(line.Split(' '), int.Parse));
+            // extract the data needed
+            fizz = data[0];
+            buzz = data[1];
+            max = data[2];
+            // print out the fizz buzz
+            PrintFizzBuzz(fizz, buzz, max);
+            
+        }
+
        file.Close();
     }
 }
