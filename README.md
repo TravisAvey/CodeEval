@@ -11,7 +11,7 @@ Code Challenges :: Whiteboard Interview Technical Questions
     ./file
 
 ## C Sharp
-	mcs File.cs
+	mcs File.cs || xbuild File.csproj
 	mono File.exe
 
 ## Python3
