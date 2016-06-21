@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -23,26 +24,46 @@ class BitPosition
             return false;
     }
 
-    private static string Convert(int x)
+    private static string Convert(int val)
     {
-        char[] bits = new char[32];
+        // char[] bits = new char[32];
+        // int i = 0;
+
+        // while (val != 0) 
+        // {
+        //     bits[i++] = (val & 1) == 1 ? '1' : '0';
+        //     val >>= 1;
+        // }
+
+        // Array.Reverse(bits, 0, i);
+        // return new string(bits);
+
+        char[] b = new char[32];
+        int pos = 31;
         int i = 0;
 
-        while (x != 0) 
+        while (i < 32)
         {
-            bits[i++] = (x & 1) == 1 ? '1' : '0';
-            x >>= 1;
+            if ((val & (1 << i)) != 0)
+                b[pos] = '1';
+            else
+                b[pos] = '0';
+            
+            pos--;
+            i++;
         }
-
-        Array.Reverse(bits, 0, i);
-        return new string(bits);
+        Array.Reverse(b);
+        return new string(b);
     }
     public static void Main (string[] args)
     {
         foreach (string line in File.ReadLines(args[0]))
         {
             int[] nums = line.Split(',').Select(i => int.Parse(i)).ToArray();
-            BitPositions(nums[0], nums[1]--, nums[2]--);
+            int val = nums[0];
+            int a = nums[1] - 1;
+            int b = nums[2] - 1;
+            BitPositions(val, a, b);
         }
     }
 }
