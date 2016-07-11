@@ -19,15 +19,25 @@ class Program
                 // get the current location (at the end of) the word
                 int found = json.IndexOf(word) + word.Length;
                 
-                if (found == 0) break;
-                Console.WriteLine ("found: {0} json {1}", found, json.Length);
+                if (found == -1 || found > json.Length) break;
+               
+                
                 // set the json to the new location.
                 // the value should be " value ..."
-                json = json.Substring (found);
-
+                string rest = json.Substring (found);
                 
+                string result = Regex.Match (rest, @"\d+").Value;
+                
+                int num;
+                bool isNum = Int32.TryParse (result, out num);
+                
+                json = rest;
 
-                // val += int.Parse(a);
+                if (isNum)
+                    val += num;
+                else
+                    continue;
+
             }
             return val;
         }
@@ -39,6 +49,7 @@ class Program
         foreach (var line in File.ReadLines(args[0]))
         {
             if (line == "") continue;
+            
             Console.WriteLine (parse.FindValue (line, "Label "));
         }
     }
