@@ -15,5 +15,6 @@ class Program
         int n = int.Parse (lines[0]);
 
         
+        
     }
 }
