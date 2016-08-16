@@ -6,7 +6,7 @@ class Program
 {
     class RomanNumerals 
     {
-        int number;
+        string number
         string output;
         Dictionary<int, string> numDict;
 
@@ -15,19 +15,14 @@ class Program
             Init ();
         }
 
-        public void Input (string val)
+        public void Convert (string val)
         {
-            int number = Int.Parse (val);
-        }
-
-        public void Convert ()
-        {
-
+            
         }
 
         private void ParseNum ()
         {
-            
+
         }
 
         private void Init ()
