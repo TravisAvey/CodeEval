@@ -6,8 +6,9 @@ class Program
 {
     class RomanNumerals 
     {
-        string number
+        string number;
         string output;
+        int digits;
         Dictionary<int, string> numDict;
 
         public RomanNumerals ()
@@ -15,18 +16,27 @@ class Program
             Init ();
         }
 
-        public void Convert (string val)
+        public string Convert (string val)
         {
-            
+            number = val;
+            digits = val.Length;
+            ParseNum ();
+            return number;
         }
 
         private void ParseNum ()
         {
+            for (int n=0; n<digits; ++n)
+            {
+                
 
+                Console.WriteLine (number[n]);
+            }
         }
 
         private void Init ()
         {
+            numDict = new Dictionary<int, string> ();
             numDict[1] = "I";
             numDict[2] = "II";
             numDict[3] = "III";
@@ -51,9 +61,10 @@ class Program
 
     public static void Main (string[] args)
     {
+        var romanNumerals = new RomanNumerals ();
         foreach (var line in File.ReadLines(args[0]))
         {
-            Console.WriteLine (line);
+            romanNumerals.Convert (line);
         }
     }
 }
