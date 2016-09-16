@@ -6,31 +6,48 @@ class Program
 {
     class RomanNumerals 
     {
+        // private member variables
         int number;
-        string output;
         int digits;
         Dictionary<int, string> numDict;
         List<int> integers;
 
+        // public constructor
         public RomanNumerals ()
         {
+            // call method to init class
             Init ();
         }
 
+        /// <summary>
+        /// Converts the value to a Roman Numeral
+        /// </summary>
         public void Convert (string val)
         {
+            // store the val as an int
             number = int.Parse (val);
+            // get the length of the val
             digits = val.Length;
+            // parse the num
             ParseNum ();
         }
 
+        /// <summary>
+        /// This method will parse the number
+        /// </summary>
         private void ParseNum ()
         {
+            //Console.WriteLine ("{0}:", number);
+            // init a variable to hold the digit
             int n = 0;
+            // loop over the digits
             for (int i = 0; i < digits; ++i)
             {
+                // pop off last digit
                 n = number % 10;
+                // shift number over to the right one
                 number /= 10;
+                // add the digit to the integers list
                 integers.Add (n);
             }
 
@@ -49,59 +66,96 @@ class Program
 
             // decrement digits for a 0 based List
             digits--;
-
-            // while digits isn't out of range for the List
+            
+            
+            // initialize the place
+            int place = 0;
             while (digits >= 0)
             {
-                // initialize the place
-                int place = 0;
                 // if we have 3 digits, this is the thousands place
                 if (digits == 3)
                 {
                     place = integers[digits--] * 1000;
-                    Console.WriteLine (place);
+                    // call a method that will print out appropriate Roman Numeral Value
+                    PrintRomanNumeral (place);
                 }
+                // 2 digits = 100s place
                 if (digits == 2)
                 {
                     place = integers[digits--] * 100;
-                    Console.WriteLine (place);
+                    PrintRomanNumeral (place);
                 }
+                // 1 digit = 10s place
                 if (digits == 1)
                 {
                     place = integers[digits--] * 10;
-                    Console.WriteLine (place);
+                    PrintRomanNumeral (place);
                 }
+                // 0 digit = 1s place
                 if (digits == 0)
                 {
                     place = integers[digits--];
-                    Console.WriteLine (place);
+                    PrintRomanNumeral (place);
                 }
-                Console.WriteLine ();
             }
+            Console.WriteLine ();
+            
         }
 
+        /// <summary>
+        /// This method prints out the roman numeral of the int passed in
+        /// </summary>
+        private void PrintRomanNumeral (int n)
+        {
+            Console.Write(numDict[n]);
+        }
+
+        /// <summary>
+        /// Private helper method that initializes the class
+        /// </summary>
         private void Init ()
         {
             integers = new List<int> ();
             numDict = new Dictionary<int, string> ();
+
+            // 1s
+            numDict[0] = "";
             numDict[1] = "I";
             numDict[2] = "II";
             numDict[3] = "III";
             numDict[4] = "IV";
             numDict[5] = "V";
-            // 6 = 5 + 1
-            // 7 = 5 + 2
-            // 8 = 5 + 3
+            numDict[6] = "VI";
+            numDict[7] = "VII";
+            numDict[8] = "VIII";
             numDict[9] = "IX";
+
+            // 10s
             numDict[10] = "X";
-            // 11 - 19 = 10 + 1..2..3..
+            numDict[20] = "XX";
+            numDict[30] = "XXX";
             numDict[40] = "XL";
             numDict[50] = "L";
+            numDict[60] = "LX";
+            numDict[70] = "LXX";
+            numDict[80] = "LXXX";
             numDict[90] = "XC";
+
+            // 100s
             numDict[100] = "C";
+            numDict[200] = "CC";
+            numDict[300] = "CCC";
+            numDict[400] = "CD";
             numDict[500] = "D";
+            numDict[600] = "DC";
+            numDict[700] = "DCC";
+            numDict[800] = "DCCC";
             numDict[900] = "CM";
+
+            // 1000s
             numDict[1000] = "M";
+            numDict[2000] = "MM";
+            numDict[3000] = "MMM";
         }
         
         
