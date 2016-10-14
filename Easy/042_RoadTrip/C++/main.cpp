@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <string>
 
 void ExtractData (std::vector<int> &, std::string &);
 void PrintDistances (std::vector<int> &);
@@ -14,11 +15,11 @@ int main (int argc, char **argv)
     if (file)
     {
         std::string line;
-        std::vector<int> miles;
+        
         while (std::getline(file, line))
         {
+            std::vector<int> miles;
             ExtractData (miles, line);
-            PrintDistances (miles);
         }
     }
 
@@ -41,11 +42,22 @@ void ExtractData (std::vector<int> &vect, std::string &line)
         
         vect.push_back (std::stoi ( data.substr (a+1, b-a-1)) );
     }
+
+    PrintDistances (vect);
 }
 
 void PrintDistances (std::vector<int> &vect)
 {
     std::sort ( vect.begin (), vect.end () );
     
-    
+    int dist = 0;
+    std::string result;
+    for (auto v : vect)
+    {
+        result += std::to_string (v-dist);
+        result += ',';
+        dist = v;
+    }
+    std::cout << result.substr (0, result.length()-1) << std::endl;
+
 }
