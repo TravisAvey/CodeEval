@@ -8,7 +8,7 @@ int mod(int, int);
 int *getInts(char *);
 
 int main(int argc, char **argv) {
-  // open the file  
+  // open the file in read mode
   FILE *file = fopen(argv[1], "r");
   // init a char array of size BUF
   char line[BUF];
