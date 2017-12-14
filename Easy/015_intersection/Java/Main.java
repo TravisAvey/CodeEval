@@ -34,11 +34,17 @@ public class Main {
   }
 
   private static void printIntersection(String[] data) {
-
-      for (String d : data) {
-
-        System.out.println(d);
+      String first = data[0];
+      String second = data[1];
+      for (int i=0; i<first.length; i++) {
+        System.out.print(first[i] + " : ");
       }
+      System.out.println();
+      for (int i=0; i<second.length; i++) {
+        System.out.print(second[i] + " : ");
+      }
+      System.out.println();
+      
   }
 
 }
