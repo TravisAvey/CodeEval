@@ -40,7 +40,7 @@ void capitalize(char *line) {
       // save the first character of the word
       char c = words[j][0];
       // if is alpha, and lowercase
-      if ((c >= 'a' && c <= 'z')
+      if (c >= 'a' && c <= 'z')
         // subtract 32, converting to uppercase
         // store uppercase back into word
         words[j][0] = c - 32;
