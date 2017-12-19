@@ -26,7 +26,7 @@ void simpleSort(char *line) {
   double nums[SIZE];  
   int elements = extractData(line, nums);
   
-  qsort(nums, elements, sizeof(double), compare);
+  qsort(nums, elements, sizeof(nums[0]), compare);
 
   int i;
   for (i=0; i<elements; i++)
@@ -50,6 +50,7 @@ int extractData(char *line, double nums[SIZE]) {
 }
 
 int compare(const void *x, const void *y) {
-  
-  return (*(double *)x) - (*(double *)y);
+  if (*(double *) x > *(double *) y) return 1;
+  else if (*(double *) x < *(double *) y) return -1;
+  else return 0; 
 }
