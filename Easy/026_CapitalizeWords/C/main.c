@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 #define BUF 512   // Buffer
 #define SIZE 256  // array size
@@ -22,6 +21,8 @@ int main(int argc, char **argv) {
   return EXIT_SUCCESS;
 }
 
+// this method capitalizes the first
+// character of each word
 void capitalize(char *line) {
     // create an array of strings
     char *words[SIZE];
@@ -36,13 +37,16 @@ void capitalize(char *line) {
     // go through each word
     int j;
     for (j=0; j<i; j++) {
+      // save the first character of the word
       char c = words[j][0];
-      if (isalpha(c) && (c >= 'a' && c <= 'z'))
+      // if is alpha, and lowercase
+      if ((c >= 'a' && c <= 'z')
+        // subtract 32, converting to uppercase
+        // store uppercase back into word
         words[j][0] = c - 32;
+      // output the word
       printf("%s ", words[j]);    
     }
+    // output a new line
     puts("");
-    // take first char and change to capital letter
-    // output the string with all capitalized words
-    
 }
