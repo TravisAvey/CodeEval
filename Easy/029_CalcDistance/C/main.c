@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #define BUF 256
 #define SIZE 10
 
 void calcDistance(char *);
-int getDistance(int [], int);
+int getDistance(int []);
 
 int main(int argc, char **argv) {
   if (argc < 2)
@@ -28,13 +29,14 @@ void calcDistance(char *data) {
     nums[i++] = atoi(token);
     token = strtok(NULL, "(), ");
   }
-  int distance = getDistance(nums, i);
+  int distance = getDistance(nums);
+  printf("%i\n", distance);
 }
 
-int getDistance(int nums[], int n) {
-  int j;
-  for (j=0; j<n; j++)
-    printf("%i ", nums[j]);
-  puts("");
+int getDistance(int nums[]) {
+  double x = ( (nums[2] - nums[0]) * (nums[2] - nums[0]) );
+  double y = ( (nums[3] - nums[1]) * (nums[3] - nums[1]) );
+  double sum = x + y;
+  return (int) (sqrt(sum) );
   return 0;
 }
