@@ -5,7 +5,7 @@
 #define BUF 512
 
 void lowestUnique(char *);
-void extractData(char *, int [], int []);
+int extractData(char *, int [], int []);
 
 int main(int argc, char **argv) {
 
@@ -21,8 +21,7 @@ int main(int argc, char **argv) {
 }
 
 void lowestUnique(char *data) {
-  // the numbers from the data
-  int numbers[20];
+  int players[20];
   // the count of each number
   // where the index is the number
   // index 1 = count of no. 1
@@ -31,25 +30,28 @@ void lowestUnique(char *data) {
   for (i=0; i<10; i++)
     count[i] = 0;
 
-  extractData(data, count, numbers);
+  int n = extractData(data, count, players);
   int j;
   int lowest = -1;
-  for (j=9; j>=1; j--) {
+  for (j=1; j<10; j++) {
+    //printf("count[%i] = %i ", j, count[j]);
     if (count[j] == 1) {
       lowest = j;
+      break;
     }
   }
+
   if (lowest == -1)
     printf("0\n");
   else {
-    for (j=0; j<i; j++)
-      if (numbers[j] == lowest)
+    for (j=0; j<n; j++)
+      if (players[j] == lowest)
         lowest = j+1;
     printf("%i\n", lowest);
   }
 }
 
-void extractData(char *data, int count[], int numbers[]) {
+int extractData(char *data, int count[], int players[]) {
 
   // strip the spaces
   char *token = strtok(data, " ");
@@ -58,16 +60,11 @@ void extractData(char *data, int count[], int numbers[]) {
   // while token isn' null
   while (token) {
     // put the number into the array
-    numbers[i++] = atoi(token);
+    int num = atoi(token);
+    players[i++] = num;
+    count[num]++;
     // grab next token
     token = strtok(NULL, " ");
   }
-
-  int j;
-  for (j=0; j<i; j++) {
-    int index = numbers[j];
-    int current = count[index];
-    count[index] = ++current;
-  }
-
+  return i;
 }
