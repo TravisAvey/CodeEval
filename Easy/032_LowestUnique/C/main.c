@@ -34,7 +34,6 @@ void lowestUnique(char *data) {
   int j;
   int lowest = -1;
   for (j=1; j<10; j++) {
-    //printf("count[%i] = %i ", j, count[j]);
     if (count[j] == 1) {
       lowest = j;
       break;
@@ -45,9 +44,10 @@ void lowestUnique(char *data) {
     printf("0\n");
   else {
     for (j=0; j<n; j++)
-      if (players[j] == lowest)
-        lowest = j+1;
-    printf("%i\n", lowest);
+      if (players[j] == lowest) {
+        printf("%i\n", j+1);
+        break;
+      }
   }
 }
 
