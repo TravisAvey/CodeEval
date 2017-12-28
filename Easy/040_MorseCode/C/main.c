@@ -8,14 +8,14 @@
 typedef struct {
   int size;
   char **keys;
-  char **values;
+  char *values;
 } hash_t;
 
 void initHashTable(hash_t *);
 void *newHash(int size);
 int getIndex(hash_t *, char *);
-void insert(hash_t *, char *, char *);
-char *get(hash_t *, char *);
+void insert(hash_t *, char *, char);
+char get(hash_t *, char *);
 
 int main(int argc, char **argv) {
   hash_t *h = newHash(SIZE);  
@@ -25,20 +25,22 @@ int main(int argc, char **argv) {
 }
 
 void initHashTable(hash_t *h) {
-  insert(h, ".-", "A");   insert(h, "-...", "B");
-  insert(h, "-.-.", "C"); insert(h, "-..", "D");
-  insert(h, ".", "E");    insert(h, "..-.", "F");
-  insert(h, "--.", "G");  insert(h, "....", "H");
-  insert(h, "..", "I");    insert(h, ".---", "J");
-  insert(h, "-.-", "K");  insert(h, ".-..", "L");
-  insert(h, "--", "M");   insert(h, "-.", "N");
-  insert(h, "---", "O");  insert(h, ".--.", "p");
+  insert(h, ".-", 'A');   insert(h, "-...", 'B');
+  insert(h, "-.-.", 'C'); insert(h, "-..", 'D');
+  insert(h, ".", 'E');    insert(h, "..-.", 'F');
+  insert(h, "--.", 'G');  insert(h, "....", 'H');
+  insert(h, "..", 'I');   insert(h, ".---", 'J');
+  insert(h, "-.-", 'K');  insert(h, ".-..", 'L');
+  insert(h, "--", 'M');   insert(h, "-.", 'N');
+  insert(h, "---", 'O');  insert(h, ".--.", 'P');
+  insert(h, "--.-", 'Q'); insert(h, ".-.", 'R');
+
 }
 
 void *newHash(int size) {
   hash_t *h = malloc(sizeof(hash_t));
   h->keys = malloc(sizeof(char *) * size);
-  h->values = malloc(sizeof(char *) * size);
+  h->values = malloc(sizeof(char) * size);
   h->size = size;
   return h;
 }
@@ -58,7 +60,7 @@ void insert(hash_t *h, char *key, char *value) {
   h->values[i] = value;
 }
 
-char *get(hash_t *h, char *key) {
+char get(hash_t *h, char *key) {
   int i = getIndex(h, key);
   return h->values[i];
 }
