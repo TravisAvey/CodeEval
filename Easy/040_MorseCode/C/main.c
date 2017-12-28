@@ -25,15 +25,24 @@ int main(int argc, char **argv) {
 }
 
 void initHashTable(hash_t *h) {
-  insert(h, ".-", 'A');   insert(h, "-...", 'B');
-  insert(h, "-.-.", 'C'); insert(h, "-..", 'D');
-  insert(h, ".", 'E');    insert(h, "..-.", 'F');
-  insert(h, "--.", 'G');  insert(h, "....", 'H');
-  insert(h, "..", 'I');   insert(h, ".---", 'J');
-  insert(h, "-.-", 'K');  insert(h, ".-..", 'L');
-  insert(h, "--", 'M');   insert(h, "-.", 'N');
-  insert(h, "---", 'O');  insert(h, ".--.", 'P');
-  insert(h, "--.-", 'Q'); insert(h, ".-.", 'R');
+  insert(h, ".-", 'A');     insert(h, "-...", 'B');
+  insert(h, "-.-.", 'C');   insert(h, "-..", 'D');
+  insert(h, ".", 'E');      insert(h, "..-.", 'F');
+  insert(h, "--.", 'G');    insert(h, "....", 'H');
+  insert(h, "..", 'I');     insert(h, ".---", 'J');
+  insert(h, "-.-", 'K');    insert(h, ".-..", 'L');
+  insert(h, "--", 'M');     insert(h, "-.", 'N');
+  insert(h, "---", 'O');    insert(h, ".--.", 'P');
+  insert(h, "--.-", 'Q');   insert(h, ".-.", 'R');
+  insert(h, "...", 'S');    insert(h, "-", 'T');
+  insert(h, "..-", 'U');    insert(h, "...-", 'V');
+  insert(h, ".--", 'W');    insert(h, "-..-", 'X');
+  insert(h, "-.--", 'Y');   insert(h, "--..", 'Z');
+  insert(h, "-----", '0');  insert(h, ".----", '1');
+  insert(h, "..---", '2');  insert(h, "...--", '3');
+  insert(h, "....-", '4');  insert(h, ".....", '5');
+  insert(h, "-....", '6');  insert(h, "--...", '7');
+  insert(h, "---..", '8');  insert(h, "----.", '9');
 
 }
 
@@ -53,7 +62,7 @@ int getIndex(hash_t *h, char *key) {
 }
 
 
-void insert(hash_t *h, char *key, char *value) {
+void insert(hash_t *h, char *key, char value) {
 
   int i = getIndex(h, key);
   h->keys[i] = key;
