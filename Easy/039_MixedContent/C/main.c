@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define BUF 256
 #define SIZE 50
@@ -40,7 +41,8 @@ void mixedContent(char *line) {
   int n = 0, w = 0;
   int j;
   for (j=0; j<i; j++) {
-    if (data[j][0] > 48 && data[j][0] < 57) {
+    char c = data[j][0];
+    if (isdigit(c)) {
       hasDigit = 1;
       numbers[n++] = data[j];
     } else {
