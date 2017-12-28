@@ -33,6 +33,9 @@ int main(int argc, char **argv) {
   // init a hash table
   hash_t *h = newHash(SIZE);  
   initHashTable(h);
+  printf("TESTING\n");
+  char C = get(h, "-.-.");
+  printf("-.-. = %c\n", C);
   
   // get each line from the file
   while (fgets(line, BUF, file)) {
@@ -79,7 +82,7 @@ void output(hash_t *h, char *code) {
   // while token is not null
   while (token) {
     // output the token
-    printf("%c", get(h, token));
+    printf("%s", token);
     // get the next token
     token = strtok(NULL, " ");
   }
