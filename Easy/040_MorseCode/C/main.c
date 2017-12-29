@@ -1,25 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #define BUF 512 // Buffer size
-#define SIZE 50 // Size of array
+#define SIZE 128 // Size of array
 
-// the hash table data type
-typedef struct {
-  int size;
-  char **keys;
-  char *values;
-} hash_t;
 
-void initHashTable(hash_t *);
-void *newHash(int size);
-int getIndex(hash_t *, char *);
-void insert(hash_t *, char *, char);
-char get(hash_t *, char *);
-void morseCode(hash_t *, char *);
+void morseCode(char *);
 int doubleSpaces(char *, char *[]);
-void output(hash_t *, char *);
+void output(char *);
+char getCode(char *);
 
 int main(int argc, char **argv) {
   // if no file passed, exit
@@ -29,28 +20,21 @@ int main(int argc, char **argv) {
   FILE *file = fopen(argv[1], "r");
   // init a string to hold each line
   char line[BUF];
-  
-  // init a hash table
-  hash_t *h = newHash(SIZE);  
-  initHashTable(h);
-  printf("TESTING\n");
-  char C = get(h, "-.-.");
-  printf("-.-. = %c\n", C);
-  
+
   // get each line from the file
   while (fgets(line, BUF, file)) {
     // strip new lines
     char *token = strtok(line, "\n");
     // call method to change the morse codes to chars
-    morseCode(h, token);
+    morseCode(token);
   }
   return EXIT_SUCCESS;
 }
 
 // Main entry to the morse code output
-void morseCode(hash_t *h, char *line) {
+void morseCode(char *line) {
   // init an array of strings
-  char *codes[10];
+  char *codes[20];
   // find the double spaces in the line
   int i = doubleSpaces(line, codes);
 
@@ -60,29 +44,29 @@ void morseCode(hash_t *h, char *line) {
     int j;
     for(j=0; j<i; j++) {
       // output the code
-      output(h, codes[j]);
+      output(codes[j]);
       // put a space in between the words
       printf(" ");
     }
   // there was not any double spaces
   } else {
     // output the word
-    output(h, line);
+    output(line);
   }
   // print a new line
   puts("");
 }
 
 // this method outputs the code
-void output(hash_t *h, char *code) {
+void output(char *code) {
   
   // tokenize the string on spaces
   char *token = strtok(code, " ");
   
   // while token is not null
   while (token) {
-    // output the token
-    printf("%s", token);
+    // output the the corresponding morse code character
+    printf("%c", getCode(token));
     // get the next token
     token = strtok(NULL, " ");
   }
@@ -139,54 +123,41 @@ int doubleSpaces(char *line, char *codes[]) {
   return n;
 }
 
-void initHashTable(hash_t *h) {
-  insert(h, ".-", 'A');     insert(h, "-...", 'B');
-  insert(h, "-.-.", 'C');   insert(h, "-..", 'D');
-  insert(h, ".", 'E');      insert(h, "..-.", 'F');
-  insert(h, "--.", 'G');    insert(h, "....", 'H');
-  insert(h, "..", 'I');     insert(h, ".---", 'J');
-  insert(h, "-.-", 'K');    insert(h, ".-..", 'L');
-  insert(h, "--", 'M');     insert(h, "-.", 'N');
-  insert(h, "---", 'O');    insert(h, ".--.", 'P');
-  insert(h, "--.-", 'Q');   insert(h, ".-.", 'R');
-  insert(h, "...", 'S');    insert(h, "-", 'T');
-  insert(h, "..-", 'U');    insert(h, "...-", 'V');
-  insert(h, ".--", 'W');    insert(h, "-..-", 'X');
-  insert(h, "-.--", 'Y');   insert(h, "--..", 'Z');
-  insert(h, "-----", '0');  insert(h, ".----", '1');
-  insert(h, "..---", '2');  insert(h, "...--", '3');
-  insert(h, "....-", '4');  insert(h, ".....", '5');
-  insert(h, "-....", '6');  insert(h, "--...", '7');
-  insert(h, "---..", '8');  insert(h, "----.", '9');
-
+char getCode(char *code) {
+  if (strcmp(code, ".-") == 0) return 'A';
+  else if (strcmp(code, "-...") == 0) return 'B';
+  else if (strcmp(code, "-.-.") == 0) return 'C';
+  else if (strcmp(code, "-..") == 0) return 'D';
+  else if (strcmp(code, ".") == 0) return 'E';
+  else if (strcmp(code, "..-.") == 0) return 'F';
+  else if (strcmp(code, "--.") == 0) return 'G';
+  else if (strcmp(code, "....") == 0) return 'H';
+  else if (strcmp(code, "..") == 0) return 'I';
+  else if (strcmp(code, ".---") == 0) return 'J';
+  else if (strcmp(code, "-.-") == 0) return 'K';
+  else if (strcmp(code, ".-..") == 0) return 'L';
+  else if (strcmp(code, "--") == 0) return 'M';
+  else if (strcmp(code, "-.") == 0) return 'N';
+  else if (strcmp(code, "---") == 0) return 'O';
+  else if (strcmp(code, ".--.") == 0) return 'P';
+  else if (strcmp(code, "--.-") == 0) return 'Q';
+  else if (strcmp(code, ".-.") == 0) return 'R';
+  else if (strcmp(code, "...") == 0) return 'S';
+  else if (strcmp(code, "-") == 0) return 'T';
+  else if (strcmp(code, "..-") == 0) return 'U';
+  else if (strcmp(code, "...-") == 0) return 'V';
+  else if (strcmp(code, ".--") == 0) return 'W';
+  else if (strcmp(code, "-..-") == 0) return 'X';
+  else if (strcmp(code, "-.--") == 0) return 'Y';
+  else if (strcmp(code, "--..") == 0) return 'Z';
+  else if (strcmp(code, "-----") == 0) return '0';
+  else if (strcmp(code, ".----") == 0) return '1';
+  else if (strcmp(code, "..---") == 0) return '2';
+  else if (strcmp(code, "...--") == 0) return '3';
+  else if (strcmp(code, "....-") == 0) return '4';
+  else if (strcmp(code, ".....") == 0) return '5';
+  else if (strcmp(code, "-....") == 0) return '6';
+  else if (strcmp(code, "--...") == 0) return '7';
+  else if (strcmp(code, "---..") == 0) return '8';
+  else if (strcmp(code, "----.") == 0) return '9';
 }
-
-void *newHash(int size) {
-  hash_t *h = malloc(sizeof(hash_t));
-  h->keys = malloc(sizeof(char *) * size);
-  h->values = malloc(sizeof(char) * size);
-  h->size = size;
-  return h;
-}
-
-int getIndex(hash_t *h, char *key) {
-  int i = (int) key % h->size;
-  while (h->keys[i] && h->keys[i] != key)
-    i = (i + 1) % h->size;
-  return i;
-}
-
-
-void insert(hash_t *h, char *key, char value) {
-
-  int i = getIndex(h, key);
-  h->keys[i] = key;
-  h->values[i] = value;
-}
-
-char get(hash_t *h, char *key) {
-  int i = getIndex(h, key);
-  return h->values[i];
-}
-
-
