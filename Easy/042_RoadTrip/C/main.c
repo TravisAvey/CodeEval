@@ -8,6 +8,7 @@
 void roadTrip(char *);
 int getData(char *, char *[]);
 int getDistances(char *[], int, int []);
+int compare(const void *, const void *);
 
 int main(int argc, char **argv) {
 
@@ -28,10 +29,11 @@ void roadTrip(char *line) {
     int distances[SIZE];
     int i = getData(line, data);
     int j = getDistances(data, i, distances);
+    qsort(distances, j, sizeof(int), compare);
     int k;
     for (k=0; k<j; k++)
         printf("Distance: %i\n", distances[k]);
-    puts("-----");
+    puts("---------");
 
 }
 
@@ -56,4 +58,8 @@ int getDistances(char *data[], int len, int distances[]) {
     }
 
     return i;
+}
+
+int compare(const void *x, const void *y) {
+    return ( *(int*) x - *(int*)y);
 }
