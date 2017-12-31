@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUF 256 // buffer size
-#define SIZE 32 // Array size
+#define BUF 1024 // buffer size
+#define SIZE 256 // Array size
 
 void roadTrip(char *);
 int getData(char *, char *[]);
@@ -25,6 +25,7 @@ int main(int argc, char **argv) {
         char *token = strtok(line, "\n");
         // get the road trip
         roadTrip(token);
+	//printf("%s\n", token);
     }
     return EXIT_SUCCESS;
 }
@@ -41,7 +42,14 @@ void roadTrip(char *line) {
     // quick sort the distances
     qsort(distances, j, sizeof(int), compare);
     
-    // 
+    int currentPos = 0;
+    int k;
+    for (k=0; k<j-1; k++) {
+        printf("%i,", distances[k] - currentPos);
+        currentPos = distances[k];
+    }
+    printf("%i\n", distances[k] - currentPos);
+    
 }
 
 // this method extracts the data from the line
