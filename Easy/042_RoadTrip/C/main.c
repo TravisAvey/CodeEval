@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUF 1024 // buffer size
-#define SIZE 256 // Array size
+// These needed to be quite large for this challenge
+#define BUF 12000  // buffer size
+#define SIZE 1024  // Array size
 
 void roadTrip(char *);
 int getData(char *, char *[]);
@@ -42,12 +43,18 @@ void roadTrip(char *line) {
     // quick sort the distances
     qsort(distances, j, sizeof(int), compare);
     
+    // set the current position as 0
     int currentPos = 0;
+    // loop over the number of distances, except last
     int k;
     for (k=0; k<j-1; k++) {
+        // output the distance from the current pos
+        // to the next (distances[k])
         printf("%i,", distances[k] - currentPos);
+        // move to next, save as current pos
         currentPos = distances[k];
     }
+    // output last without a comma
     printf("%i\n", distances[k] - currentPos);
     
 }
