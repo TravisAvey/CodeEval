@@ -24,19 +24,31 @@ int main(int argc, char **argv) {
 void compressNumbers(char *line) {
   
   char *token = strtok(line, " ");
-  int current = atoi(token);
+  int current;
+  int first = 1;
   int count = 0;
   while (token) {
-    int n = atoi(token);
-    if (n != current) {
-      printf("%i %i ", count, current);
-      current = n;
-      count = 1;
-    } else {
+
+    if (first) {
+      current = atoi(token);
       count++;
+      first = 0;
+
+    } else {
+
+      int n = atoi(token);
+
+      if (n != current) {
+        printf("%i %i ", count, current);
+        current = n;
+        count = 1;
+
+      } else {
+        count++;
+      }
     }
     token = strtok(NULL, " ");
   }
-  puts("");
+  printf("%i %i\n", count, current);
 
 }
