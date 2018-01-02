@@ -5,7 +5,7 @@
 #define BUF 64
 #define SIZE 12
 
-void racingChars(char *);
+void racingChars(char *[], int);
 
 
 int main(int argc, char **argv) {
@@ -16,29 +16,43 @@ int main(int argc, char **argv) {
 
     FILE *file = fopen(argv[1], "r");
     char line[BUF];
+    char *data[50];
     int i = 0;
     while(fgets(line, BUF, file)) {
         if (line[0] == '\n') continue;
         char *token = strtok(line, "\n");
-        racingChars(token);
+        data[i] = (char *) malloc(sizeof(char) * BUF);
+        strcpy(data[i], token);
+        i++;
     }
+    racingChars(data, i);
     return EXIT_SUCCESS;
 }
 
 
-void racingChars(char *data) {
-    static int prev = -1;
-    int check = 0;
-    int len = strlen(data);
-    int i;
-    for (i=0; i<len; i++) {
-
-        if (data[i] == 'C') {
-            prev = i;
-        } else if (data[i] == '_') {
-            prev = i;
-        }
-    }
- 
+void racingChars(char *data[], int len) {
     
+    char checkPoint = 'C';
+    char gate       = '_';
+    char straight   = '|';
+    char left       = '/';
+    char right      = '\\';
+    
+    int currentCheck;
+    int currentGate;
+    int lastPosition;
+
+    int hasCheck = 0;
+    int hasGate = 0;
+    int firstRun = 1;
+
+    int i, j;
+    for (i=0; i<len; i++) {
+        char *line = data[i];
+        for (j=0; j<strlen(line); j++) {
+            char ch = data[i][j];
+            printf("%c ", ch);
+        }
+        puts("");
+    }
 }
