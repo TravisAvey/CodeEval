@@ -42,17 +42,67 @@ void racingChars(char *data[], int len) {
     int currentGate;
     int lastPosition;
 
-    int hasCheck = 0;
-    int hasGate = 0;
-    int firstRun = 1;
+    int hasCheck    = 0;
+    int hasGate     = 0;
+    int first       = 1;
 
     int i, j;
     for (i=0; i<len; i++) {
         char *line = data[i];
         for (j=0; j<strlen(line); j++) {
             char ch = data[i][j];
-            printf("%c ", ch);
+            if (ch == checkPoint) {
+                currentCheck = j;
+                hasCheck = 1;
+            } else if (ch == gate) {
+                currentGate = j;
+                hasGate = 1;
+            }
         }
-        puts("");
+
+        if (first) {
+            first = 0;
+            if (hasCheck) {
+                lastPosition = currentCheck;
+                // make new string with a straight
+                data[i][currentCheck] = straight;
+            } else if (hasGate) {
+                lastPosition = currentGate;
+                data[i][currentGate] = straight;
+                // make a new string with straight char at position
+            }
+        } else {
+            if (hasCheck) {
+                if (lastPosition == currentCheck) {
+                    // make string with stright
+                    data[i][currentCheck] = straight;
+                } else if (lastPosition < currentCheck) {
+                    // make string with left
+                    data[i][currentCheck] = right;
+                } else if (lastPosition > currentCheck) {
+                    // make string with right
+                    data[i][currentCheck] = left;
+                }
+                lastPosition = currentCheck;
+
+            } else if (hasGate && !hasCheck) {
+                if (lastPosition == currentGate) {
+                    // make string with straight
+                    data[i][currentGate] = straight;
+                } else if (lastPosition < currentGate) {
+                    // make string with left
+                    data[i][currentGate] = right;
+                } else if (lastPosition > currentGate) {
+                    // make string with right
+                    data[i][currentGate] = left;
+                }
+
+                lastPosition = currentGate;
+            }
+        }
+        printf("%s\n", data[i]);
+        hasCheck = 0;
+        hasGate = 0;
+        
     }
 }
