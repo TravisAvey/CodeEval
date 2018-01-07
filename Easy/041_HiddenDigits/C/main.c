@@ -38,7 +38,7 @@ void hiddenDigits(char *line) {
         // if char is one of the digits we care about
         if (c >= 'a' && c <= 'j' || c >= '0' && c <= '9') {
             // output the hidden digit
-            printf("%i", getDigit(c);
+            printf("%i", getDigit(c));
             // set flag that we found a hidden digit
             hasDigits = 1;
         }
