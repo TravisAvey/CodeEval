@@ -42,10 +42,10 @@ void ageDistribution(int age) {
         puts("High school");
     else if (age >= 19 && age <= 22)
         puts("College");
-    else if (age >= 66 && age <= 65)
+    else if (age >= 23 && age <= 65)
         puts("Working for the man");
     else if (age >= 66 && age <= 100)
         puts("The Golden Years");
-    else if (age < 0 || age > 100)
+    else
         puts("This program is for humans");
 }
