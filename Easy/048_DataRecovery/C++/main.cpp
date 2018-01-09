@@ -36,6 +36,8 @@ void dataRecovery(std::string &line) {
   std::string data[2];
   // array of words
   std::string words[SIZE];
+  // array for output
+  std::string output[SIZE];
   // array of the indices
   int nums[SIZE];
   // call method to get the data into array
@@ -46,8 +48,19 @@ void dataRecovery(std::string &line) {
   // find the missing index
   int missing = findMissing(nums, count-1);
   
-  // missing index -> last word in the words array
-  printf("Missing index: %i\n", missing);
+  // loop over the number of indices
+  for (int i=0; i<count-1; i++) {
+    // store the index (-1 b/c the input indices are 1 based)
+    int pos = nums[i] - 1;
+    // store the output in the corect order
+    output[pos] = words[i];
+  }
+  // finally put the final word
+  output[missing-1] = words[count-1];
+  // loop and output the correct order
+  for (int i=0; i<count; i++)
+    std::cout << output[i] << ' ';
+  std::cout << std::endl;
 }
 
 // Helper method extracts data into an array
