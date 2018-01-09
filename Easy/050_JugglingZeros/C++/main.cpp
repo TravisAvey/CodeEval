@@ -42,7 +42,7 @@ void juggleZeros(std::string &line) {
   // get the binary string from the zeros array
   getBinaryStr(zeros, binaryStr, count);
   // output decimal version of binary string
-  std::cout << std::bitset<32>(binaryStr).to_ulong() << std::endl;
+  std::cout << std::bitset<SIZE>(binaryStr).to_ulong() << std::endl;
 
 }
 
